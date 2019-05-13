@@ -1,0 +1,68 @@
+.colHeader{
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.row{
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+}
+
+.selectedRow{
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    background-color: #93e1ff;
+    cursor: pointer;
+}
+
+.colHeader div{
+    white-space: nowrap;
+    display: flex;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-user-select: none;
+    padding: 2px;
+    padding-left: 4px;
+    align-content: center;
+    text-align: left;
+    border-right: #d9d9d9;
+    border-right-width: 1px;
+    border-right-style: solid;
+}
+
+.row div{
+    white-space: nowrap;
+    display: flex;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-user-select: none;
+    padding: 2px;
+    padding-left: 4px;
+    align-content: center;
+    text-align: left;
+    border-right: #d9d9d9;
+    border-right-width: 1px;
+    border-right-style: solid;
+}
+
+.selectedRow div{
+    white-space: nowrap;
+    display: flex;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-user-select: none;
+    padding: 2px;
+    padding-left: 4px;
+    align-content: center;
+    text-align: left;
+    border-right: #c3c3c3;
+    border-right-width: 1px;
+    border-right-style: solid;
+}

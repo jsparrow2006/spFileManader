@@ -1,0 +1,20 @@
+.panel{
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+    width: 100%;
+}
+
+.diskArea{
+    padding-bottom: 3px;
+    border-bottom: #c3c3c3;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+
+.filesArea{
+    height: 100%;
+    padding-top: 3px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}

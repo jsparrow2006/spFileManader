@@ -1,0 +1,39 @@
+.buttnDrive {
+    margin: 3px;
+}
+
+.drivesWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.spaceBlock {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding: 4px;
+    height: 17px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    line-height: 0px;
+    border-radius: 8px;
+    background-color: #ff7b76;
+    color: white;
+    margin: 2px;
+}
+
+.typeBlock{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding: 4px;
+    height: 17px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    line-height: 0px;
+    border-radius: 8px;
+    background-color: #83dc8b;
+    color: white;
+    margin: 2px;
+}

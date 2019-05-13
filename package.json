@@ -1,0 +1,49 @@
+{
+  "name": "quick_start_electron-react",
+  "description": "Quick Start Electron + ReactJS",
+  "author": "Igor Gaichuk (jsparrow2006)",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^3.9.3",
+    "cross-env": "5.1.6",
+    "electron-is-dev": "0.3.0",
+    "electron-log": "^2.2.6",
+    "lodash": "^4.17.11",
+    "react": "^16.8.6",
+    "react-dom": "16.4.0",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "react-split-pane": "^0.1.87",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
+    "update-electron-app": "^1.2.0"
+  },
+  "devDependencies": {
+    "concurrently": "3.5.1",
+    "electron": "2.0.2",
+    "electron-builder": "^20.15.1",
+    "electron-devtools-installer": "^2.2.4",
+    "prettier": "^1.4.4",
+    "react-scripts": "1.1.4",
+    "wait-on": "2.1.0"
+  },
+  "build": {
+    "publish": {
+      "provider": "github"
+    }
+  },
+  "main": "public/electron.js",
+  "homepage": "./",
+  "scripts": {
+    "react-start": "react-scripts start",
+    "react-build": "react-scripts build",
+    "react-test": "react-scripts test --env=jsdom",
+    "react-eject": "react-scripts eject",
+    "electron-build": "electron-builder",
+    "release": "npm run react-build && electron-builder --publish=always",
+    "build": "npm run react-build && npm run electron-build",
+    "start": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3000 && electron .\""
+  }
+}
