@@ -12,7 +12,7 @@ export function getFilesSync(path) {
     };
 
     try {
-        var result = electron.remote.require('child_process').execSync(`DIR ${path} /O /-C /n`);
+        var result = electron.remote.require('child_process').execSync(`DIR "${path}" /O /-C /n`);
     } catch (e) {
         return {catalogs: [], files: []}
     }
@@ -20,11 +20,11 @@ export function getFilesSync(path) {
     fls = result.split('\n');
     fls = fls.slice(0, -3);
     fileList.path = fls[3].split(':\\')[1].replace(/\r|\n/g, '')
+    console.log(fileList.path)
 
     fls.map((item, index) => {
         let filestemp = item.split(/\s\s+/g);
-        console.log(filestemp)
-        if (index > 3 && filestemp.length > 1) {
+        if (index > 3 && filestemp.length > 1  && (filestemp[3] !== '.\r' && filestemp[3] !== '..\r')) {
             if (filestemp[2] === '<DIR>') {
                 fileList.catalogs.push({
                     date: filestemp[0],

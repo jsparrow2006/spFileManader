@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {getDrivesSync} from '../../modules/Drive'
 import Button from '@material-ui/core/Button';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import './style.css'
 
 
@@ -9,13 +11,18 @@ class DriveList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ...JSON.parse(window.localStorage.getItem(this.props.name))
+            drives: window.localStorage.getItem(this.props.name) ? JSON.parse(window.localStorage.getItem(this.props.name)) : [],
+            activeDrive: {
+                Caption: 'C:'
+            }
         }
 
         setInterval(() => {
-            this.setState({drives: getDrivesSync()});
-            window.localStorage.setItem(this.props.name, JSON.stringify(this.state))
-        }, 3000)
+            let newDrives = getDrivesSync();
+            this.setState({drives: newDrives});
+            window.localStorage.setItem(this.props.name, JSON.stringify(newDrives));
+            // this.props.updateDrive(newDrives);
+        }, 10000)
 
     }
 
@@ -45,11 +52,14 @@ class DriveList extends Component {
     render() {
         return (
             <div className='drivesWrapper'>
-                {this.showDrives()}
-                <span className='spaceBlock'>{(this.state.activeDrive.FreeSpace / 1073741824).toFixed(1)}Gb / {(this.state.activeDrive.Size / 1073741824).toFixed(1)}Gb</span>
+                {this.state.drives ? this.showDrives() : ''}
+                <span
+                    className='spaceBlock'>{(this.state.activeDrive.FreeSpace / 1073741824).toFixed(1)}Gb / {(this.state.activeDrive.Size / 1073741824).toFixed(1)}Gb</span>
                 <span className='typeBlock'> ({this.state.activeDrive.FileSystem})</span>
+                <LinearProgress/>
             </div>
-        );
+        )
+
     }
 }
 

@@ -10,8 +10,20 @@ import FileList from '../../components/fileList/FileList'
 
 class Main extends Component {
 
+    constructor(){
+        super();
+        this.state = {
+            activePanel: 1
+        }
+    }
+
     componentDidMount() {
 
+    }
+
+    setActivePanel = (number) => {
+        console.log('active ' + number)
+        this.setState({activePanel: number})
     }
 
 
@@ -20,10 +32,10 @@ class Main extends Component {
             <div>
                 <SplitPane split="vertical" minSize={450} defaultSize={window.innerWidth/2-20}>
                     <div>
-                        <WorkPanel number={1}/>
+                        <WorkPanel number={1} setActive={this.setActivePanel} isActive={this.state.activePanel === 1}/>
                     </div>
                     <div>
-                        <WorkPanel number={2}/>
+                        <WorkPanel number={2} setActive={this.setActivePanel} isActive={this.state.activePanel === 2}/>
                     </div>
                 </SplitPane>
             </div>

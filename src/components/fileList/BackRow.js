@@ -13,7 +13,7 @@ class BackRow extends Component {
 
     render() {
         return (
-            <div className={this.props.isSelect ? ' selectedRow' : 'row'}>
+            <div className='row backRow' onDoubleClick={this.props.doubleClick}>
                 <div style={{width:  this.props.size.name}}>...</div>
                 <div style={{width: this.props.size.type}}></div>
                 <div style={{width: this.props.size.size}}></div>
