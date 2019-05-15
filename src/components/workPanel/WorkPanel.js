@@ -29,7 +29,7 @@ class WorkPanel extends Component {
     }
 
     doubleClickRow = (row, fullPath) => {
-        console.log(`${fullPath}\\${row.name}`)
+        // console.log(`${fullPath}\\${row.name}`)
         if(row.type === 'dir'){
             this.setState({filelist: {...getFilesSync(`${fullPath}\\${row.name}`)}})
         } else if (row.type === 'file'){
@@ -51,12 +51,17 @@ class WorkPanel extends Component {
 
     render() {
         return (
-            <div className={`panel ${!this.props.isActive ? 'notActive' : ''}`} onClick={() => this.props.setActive(this.props.number)}>
+            <div className={`panel`} onClick={() => this.props.setActive(this.props.number)}>
                 <div className='diskArea'>
                     <DriveList name={'driveList' + this.props.number} click={this.setDrive} updateDrive={this.updateDrive}/>
                 </div>
-                <div className='filesArea'>
-                    <FileList drive={this.state.drive} filelist={this.state.filelist} doubleClickRow={this.doubleClickRow} updateDrive={this.setDrive}/>
+                <div className={`filesArea ${!this.props.isActive ? 'notActive' : ''}`}>
+                    <FileList drive={this.state.drive}
+                              filelist={this.state.filelist}
+                              doubleClickRow={this.doubleClickRow}
+                              updateDrive={this.setDrive}
+                              isActive={this.props.isActive}
+                    />
                 </div>
             </div>
         );

@@ -1,8 +1,11 @@
 .colHeader{
+    top: 0px;
+    position: sticky;
     font-family: 'Roboto', sans-serif;
     width: 100%;
     display: flex;
     flex-direction: row;
+    background-color: white;
     border-bottom: #d9d9d9;
     border-bottom-width: 1px;
     border-bottom-style: solid;

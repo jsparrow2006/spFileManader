@@ -30,7 +30,7 @@ class Main extends Component {
     render() {
         return (
             <div>
-                <SplitPane split="vertical" minSize={450} defaultSize={window.innerWidth/2-20}>
+                <SplitPane split="vertical" minSize={20} defaultSize={window.innerWidth/2-20}>
                     <div>
                         <WorkPanel number={1} setActive={this.setActivePanel} isActive={this.state.activePanel === 1}/>
                     </div>

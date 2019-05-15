@@ -25,10 +25,11 @@ class FileList extends Component {
                 size: '15%',
                 date: '25%'
             },
-            selectedFiles: [],
+            selectedFiles: [0],
             // key: -1
         };
 
+        this.data = [];
         this.kCtrl = false;
         this.kShift = false;
 
@@ -42,31 +43,56 @@ class FileList extends Component {
     };
 
     setKeyStatusOn = (e) => {
-        // e.preventDefault();
+        e.preventDefault();
         this.kCtrl = e.ctrlKey;
         this.kShift = e.shiftKey;
-        switch (e.keyCode) {
-            case 38:
-                this.keyPress('up')
-                break;
-            case 40:
-                this.keyPress('down')
-                break;
+        if (this.props.isActive) {
+            switch (e.keyCode) {
+                case 38:
+                    // e.preventDefault();
+                    this.keyPress('up')
+                    break;
+                case 40:
+                    // e.preventDefault();
+                    this.keyPress('down')
+                    break;
+                case 13:
+                    try {
+                        this.props.doubleClickRow(this.data[this.state.selectedFiles], `${this.props.drive}${this.props.filelist.path ? '\\' : ''}${this.props.filelist.path}`)
+                    } catch (e) {
+                    }
+                    break;
+                case 8:
+                    try {
+                        this.props.doubleClickRow({
+                            type: 'dir',
+                            name: '..'
+                        }, `${this.props.drive}${this.props.filelist.path ? '\\' : ''}${this.props.filelist.path}`)
+                    } catch (e) {
+                    }
+                    break;
+            }
         }
 
     };
 
     keyPress = (vector) =>{
-        if (vector === 'up'){
-            this.setState({selectedFiles: [this.state.selectedFiles[this.state.selectedFiles.length-1] -1]})
-        } else if (vector === 'down'){
-            this.setState({selectedFiles: [this.state.selectedFiles[this.state.selectedFiles.length-1] +1]})
-        }
+        // if (this.props.isActive){
+            let indexFile = [this.state.selectedFiles[this.state.selectedFiles.length-1]];
+            console.log(indexFile)
+            if (vector === 'up' && indexFile > 0){
+                indexFile--;
+                this.selectRow(indexFile);
+            } else if (vector === 'down' && indexFile < this.state.files.length + this.state.catalogs.length - 1){
+                indexFile++;
+                this.selectRow(indexFile);
+            }
+        // }
     }
 
     componentWillUpdate(nextProps) {
-        if (this.props !== nextProps) {
-            this.setState({files: nextProps.filelist.files, catalogs: nextProps.filelist.catalogs})
+        if (this.props.filelist !== nextProps.filelist) {
+            this.setState({files: nextProps.filelist.files, catalogs: nextProps.filelist.catalogs, selectedFiles: [0]})
         }
     }
 
@@ -98,12 +124,14 @@ class FileList extends Component {
         } else {
             this.setState({selectedFiles: [index]})
         }
+        let elmnt = document.getElementById('row' + index);
+        elmnt.scrollIntoView({block: "end", behavior: "smooth"});
 
     }
 
 
     render() {
-        const data = [
+        this.data = [
             ...this.state.catalogs,
             ...this.state.files
         ];
@@ -119,19 +147,21 @@ class FileList extends Component {
                 /> : ''}
 
                 {
-                    data.map((file, index) => {
+                    this.data.map((file, index) => {
                         if (file.type === 'dir') {
-                            return <CatalogRow key={index + file.date} index={index} catalog={file}
+                            return <CatalogRow key={index} index={index} catalog={file}
                                                size={this.state.sizeColumn} isSelect={this.rowIsSelect(index)}
                                                ondblclick={() => this.props.open(file)}
                                                doubleClick={() => this.props.doubleClickRow(file, `${this.props.drive}${this.props.filelist.path ? '\\' : ''}${this.props.filelist.path}`)}
-                                               click={this.selectRow}/>
+                                               click={this.selectRow}
+                            />
                         } else if (file.type === 'file') {
-                            return <FileRow key={index + file.date} index={index} file={file}
+                            return <FileRow key={index} index={index} file={file}
                                             size={this.state.sizeColumn} isSelect={this.rowIsSelect(index)}
                                             ondblclick={() => this.props.open(file)}
                                             doubleClick={() => this.props.doubleClickRow(file, `${this.props.drive}${this.props.filelist.path ? '\\' : ''}${this.props.filelist.path}`)}
-                                            click={this.selectRow}/>
+                                            click={this.selectRow}
+                            />
                         }
                     })
                 }

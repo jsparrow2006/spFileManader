@@ -14,7 +14,7 @@ class FileRow extends Component {
 
     render() {
         return (
-            <div className={this.props.isSelect ? ' selectedRow' : 'row'} onClick={() => this.props.click(this.props.index)} onDoubleClick={this.props.doubleClick}>
+            <div id={'row' + this.props.index} className={this.props.isSelect ? ' selectedRow' : 'row'} onClick={() => this.props.click(this.props.index)} onDoubleClick={this.props.doubleClick}>
                 <div style={{width: this.props.size.name}}>
                     <IconForFile filePath={'d:\\' + this.props.file.name + '.' + this.props.file.ext}/>
                     {this.props.file.name}
