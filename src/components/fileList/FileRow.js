@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import IconForFile from "./IconForFile";
-const electron = window.require('electron');
+
 
 class FileRow extends Component {
 

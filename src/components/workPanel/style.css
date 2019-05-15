@@ -19,5 +19,5 @@
 }
 
 .notActive {
-    -webkit-filter: grayscale(40%);
+    -webkit-filter: grayscale(60%);
 }

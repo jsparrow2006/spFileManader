@@ -73,6 +73,19 @@
     border-right-style: solid;
 }
 
-.backRow {
+.sticky{
+    top: 0px;
+    position: sticky;
+}
 
+.pathRow{
+    top: 0px;
+    position: sticky;
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    background-color: #3f51b5;
+    color: white;
+    padding-left: 10px;
 }

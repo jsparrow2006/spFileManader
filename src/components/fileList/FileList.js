@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {getFilesSync} from '../../modules/Files'
 import CatalogRow from './CatalogRow'
 import FileRow from './FileRow'
 import BackRow from './BackRow'
+import PathPanel from './PathPanel'
 import HeaderRow from './HeaderRow'
 import './style.css'
 
@@ -77,7 +77,7 @@ class FileList extends Component {
     };
 
     keyPress = (vector) =>{
-        // if (this.props.isActive){
+        if (this.props.isActive){
             let indexFile = [this.state.selectedFiles[this.state.selectedFiles.length-1]];
             console.log(indexFile)
             if (vector === 'up' && indexFile > 0){
@@ -87,7 +87,7 @@ class FileList extends Component {
                 indexFile++;
                 this.selectRow(indexFile);
             }
-        // }
+        }
     }
 
     componentWillUpdate(nextProps) {
@@ -137,7 +137,10 @@ class FileList extends Component {
         ];
         return (
             <div id={'panel' + this.props.number}>
-                <HeaderRow size={this.state.sizeColumn}/>
+                <div className='sticky'>
+                    <PathPanel path={this.props.filelist.path}/>
+                    <HeaderRow size={this.state.sizeColumn}/>
+                </div>
                 {this.props.filelist.path ? <BackRow size={this.state.sizeColumn}
                                                      isSelect={this.state.selectedFiles.length === 0}
                                                      doubleClick={() => this.props.doubleClickRow({
