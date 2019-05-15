@@ -33,7 +33,7 @@ export function getFilesSync(path) {
                     name: filestemp[3],
                 });
             } else {
-                var ff = filestemp[2].split(' ', 2)
+                var ff = filestemp[2].match(/([а-яА-Я\w]+)\s(.*)/).splice(1)
                 var tname = ff[1].split('.', 2)[0]
                 var tExt = ff[1].split('.', 2)[1]
                 fileList.files.push({
