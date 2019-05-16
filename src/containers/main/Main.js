@@ -3,9 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import './style/index.css';
 import SplitPane from 'react-split-pane'
-import DriveList from '../../components/driveList/DriveList'
 import WorkPanel from '../../components/workPanel/WorkPanel'
-import FileList from '../../components/fileList/FileList'
 
 
 class Main extends Component {

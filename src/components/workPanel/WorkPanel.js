@@ -3,6 +3,7 @@ import './style.css'
 import DriveList from '../driveList/DriveList'
 import FileList from '../fileList/FileList'
 import {getFilesSync} from '../../modules/Files'
+import FileViewer from '../fileViewer/FileViewer'
 const electron = window.require('electron');
 const {exec} = electron.remote.require('child_process');
 
@@ -52,6 +53,7 @@ class WorkPanel extends Component {
     render() {
         return (
             <div className={`panel`} onClick={() => this.props.setActive(this.props.number)}>
+                <FileViewer/>
                 <div className='diskArea'>
                     <DriveList name={'driveList' + this.props.number} click={this.setDrive} updateDrive={this.updateDrive}/>
                 </div>
