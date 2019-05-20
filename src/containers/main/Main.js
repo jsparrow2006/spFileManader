@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import {watchDrives} from '../../actions/main'
 import './style/index.css';
 import SplitPane from 'react-split-pane'
 import WorkPanel from '../../components/workPanel/WorkPanel'
@@ -16,7 +17,7 @@ class Main extends Component {
     }
 
     componentDidMount() {
-
+        this.props.watchDrives();
     }
 
     setActivePanel = (number) => {
@@ -50,7 +51,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({}, dispatch)
+    return bindActionCreators({watchDrives: watchDrives}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

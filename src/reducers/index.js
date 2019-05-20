@@ -5,4 +5,6 @@ const allReducers = combineReducers({
     main: MainReducers
 });
 
+
+
 export default allReducers

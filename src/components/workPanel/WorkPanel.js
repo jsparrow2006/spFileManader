@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import './style.css'
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as actions from '../../actions/main'
 import DriveList from '../driveList/DriveList'
 import FileList from '../fileList/FileList'
 import {getFilesSync} from '../../modules/Files'
@@ -39,6 +42,7 @@ class WorkPanel extends Component {
     }
 
     setDrive = (drive) => {
+        this.props.setActiveDrive(this.props.number, drive)
         this.setState({drive: drive}, () => {
             this.setState({filelist: {...getFilesSync(`${this.state.drive}\\`)}})
         })
@@ -53,9 +57,9 @@ class WorkPanel extends Component {
     render() {
         return (
             <div className={`panel`} onClick={() => this.props.setActive(this.props.number)}>
-                <FileViewer/>
+                {/*<FileViewer/>*/}
                 <div className='diskArea'>
-                    <DriveList name={'driveList' + this.props.number} click={this.setDrive} updateDrive={this.updateDrive}/>
+                    <DriveList click={this.setDrive} updateDrive={this.updateDrive} drives={this.props.drives} number={this.props.number} activeDrive={this.props.panel.activeDrive}/>
                 </div>
                 <div className={`filesArea ${!this.props.isActive ? 'notActive' : ''}`}>
                     <FileList drive={this.state.drive}
@@ -70,4 +74,17 @@ class WorkPanel extends Component {
     }
 }
 
-export default WorkPanel;
+function mapStateToProps(state, props) {
+    return {
+        drives: state.main.drives,
+        panel: state.main[props.number]
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        setActiveDrive: actions.setActiveDrive,
+    }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(WorkPanel)

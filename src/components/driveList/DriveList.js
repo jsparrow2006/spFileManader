@@ -1,41 +1,21 @@
 import React, {Component} from 'react';
 import {getDrivesSync} from '../../modules/Drive'
 import Button from '@material-ui/core/Button';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import ReactLoading from 'react-loading';
 import './style.css'
 
 
 class DriveList extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            drives: window.localStorage.getItem(this.props.name) ? JSON.parse(window.localStorage.getItem(this.props.name)) : [],
-            activeDrive: {
-                Caption: 'C:'
-            }
-        }
-
-        setInterval(() => {
-            let newDrives = getDrivesSync();
-            this.setState({drives: newDrives});
-            window.localStorage.setItem(this.props.name, JSON.stringify(newDrives));
-            // this.props.updateDrive(newDrives);
-        }, 10000)
-
-    }
-
     setActiveDrive(drive) {
-        this.setState({activeDrive: drive})
         this.props.click(drive.DeviceId)
     }
 
     showDrives() {
         return (
-            this.state.drives.map((drive, index) => {
+            this.props.drives.map((drive, index) => {
                 return (
-                    <Button variant={drive.Caption === this.state.activeDrive.Caption ? 'contained' : 'outlined'}
+                    <Button variant={drive.Caption === this.props.activeDrive ? 'contained' : 'outlined'}
                             size='small'
                             color='primary'
                             key={'drive' + index}
@@ -48,15 +28,14 @@ class DriveList extends Component {
         )
     }
 
-
     render() {
         return (
             <div className='drivesWrapper'>
-                {this.state.drives ? this.showDrives() : ''}
+                {this.props.drives ? this.showDrives() : <ReactLoading type='cylon' color={'#3f51b5'}/>}
                 <span
-                    className='spaceBlock'>{(this.state.activeDrive.FreeSpace / 1073741824).toFixed(1)}Gb / {(this.state.activeDrive.Size / 1073741824).toFixed(1)}Gb</span>
-                <span className='typeBlock'> ({this.state.activeDrive.FileSystem})</span>
-                <LinearProgress/>
+                    className='spaceBlock'>{(this.props.drives[this.props.number].FreeSpace / 1073741824).toFixed(1)}Gb / {(this.props.drives[this.props.number].Size / 1073741824).toFixed(1)}Gb</span>
+                <span className='typeBlock'> ({this.props.drives[this.props.number].FileSystem})</span>
+
             </div>
         )
 
