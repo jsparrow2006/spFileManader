@@ -20,7 +20,6 @@ export function getFilesSync(path) {
     fls = result.split('\n');
     fls = fls.slice(0, -3);
     fileList.path = fls[3].split(':\\')[1].replace(/\r|\n/g, '')
-    console.log(fileList.path)
 
     fls.map((item, index) => {
         let filestemp = item.split(/\s\s+/g);
@@ -49,5 +48,4 @@ export function getFilesSync(path) {
     });
 
     return fileList
-    // return {catalogs: [], files: []}
 }

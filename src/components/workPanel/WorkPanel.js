@@ -29,7 +29,7 @@ class WorkPanel extends Component {
     }
 
     componentDidMount(){
-
+        this.props.reloadFiles(this.props.number)
     }
 
     doubleClickRow = (row, fullPath) => {
@@ -43,15 +43,7 @@ class WorkPanel extends Component {
 
     setDrive = (drive) => {
         this.props.setActiveDrive(this.props.number, drive)
-        this.setState({drive: drive}, () => {
-            this.setState({filelist: {...getFilesSync(`${this.state.drive}\\`)}})
-        })
-    }
-
-    updateDrive = (drives) => {
-        console.log(drives)
-        this.setState({drives: drives})
-        this.setState({filelist: {...getFilesSync(`${this.state.drive}\\`)}})
+        this.props.reloadFiles(this.props.number)
     }
 
     render() {
@@ -59,11 +51,11 @@ class WorkPanel extends Component {
             <div className={`panel`} onClick={() => this.props.setActive(this.props.number)}>
                 {/*<FileViewer/>*/}
                 <div className='diskArea'>
-                    <DriveList click={this.setDrive} updateDrive={this.updateDrive} drives={this.props.drives} number={this.props.number} activeDrive={this.props.panel.activeDrive}/>
+                    <DriveList click={this.setDrive} drives={this.props.drives} number={this.props.number} activeDrive={this.props.panel.activeDrive}/>
                 </div>
                 <div className={`filesArea ${!this.props.isActive ? 'notActive' : ''}`}>
                     <FileList drive={this.state.drive}
-                              filelist={this.state.filelist}
+                              filelist={this.props.panel.fileList}
                               doubleClickRow={this.doubleClickRow}
                               updateDrive={this.setDrive}
                               isActive={this.props.isActive}
@@ -84,6 +76,7 @@ function mapStateToProps(state, props) {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         setActiveDrive: actions.setActiveDrive,
+        reloadFiles: actions.reloadFiles,
     }, dispatch)
 }
 

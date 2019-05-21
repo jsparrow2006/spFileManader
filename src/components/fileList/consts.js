@@ -1,0 +1,1 @@
+export const typeSize = ['B', 'Kb', 'Mb', 'Gb', 'Tb', 'Pb', 'Eb', 'Zb', 'Yb'];

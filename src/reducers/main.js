@@ -1,32 +1,33 @@
 import * as type from '../constants/index'
 
-if (JSON.parse(window.localStorage.getItem('workPanels'))){
-    var savesDrives = JSON.parse(window.localStorage.getItem('workPanels')).drives ? JSON.parse(window.localStorage.getItem('workPanels')).drives : []
-}
-
 let init = {
-    drives: savesDrives,
+    drives: [],
     1:{
         activeDrive: '',
-        filelist: {
+        loader: false,
+        fileList: {
             files: [],
             catalogs: [],
-            path: '1',
-            loader: false,
+            path: '',
         },
     },
     2:{
         activeDrive: '',
-        filelist: {
+        loader: false,
+        fileList: {
             files: [],
             catalogs: [],
-            path: '2',
-            loader: false,
+            path: '',
         }
     }
 };
 
+if (JSON.parse(window.localStorage.getItem('workPanels'))){
+    init = JSON.parse(window.localStorage.getItem('workPanels'))
+}
+
 export default function (state = init, action) {
+    let tmpState = {};
     switch (action.type) {
         case type.NEW_DRIVES:
             return {
@@ -34,9 +35,14 @@ export default function (state = init, action) {
                 drives: action.payload
             };
         case type.SET_ACTIVE_DRIVE:
-            console.log(action)
-            let tmpState = {...state}
+            tmpState = {...state};
             tmpState[action.payload.panel].activeDrive = action.payload.activeDrive;
+            return {
+                ...tmpState,
+            };
+        case type.NEW_FILE_LIST:
+            tmpState = {...state}
+            tmpState[action.payload.panel].fileList = action.payload.fileList;
             return {
                 ...tmpState,
             };
