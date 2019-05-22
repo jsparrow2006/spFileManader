@@ -3,25 +3,24 @@ import {getFilesSync} from '../modules/Files'
 import * as type from '../constants/index'
 
 export const watchDrives = () => {
+    let newDrives = getDrivesSync();
+    console.log(newDrives)
     return (dispatch) => {
-        setInterval(() => {
-            let newDrives = getDrivesSync();
-            console.log(newDrives)
-            dispatch({
-                type: type.NEW_DRIVES,
-                payload: newDrives
-            });
-        }, 10000)
+        dispatch({
+            type: type.NEW_DRIVES,
+            payload: newDrives
+        });
     }
 }
 
-export const reloadFiles = (panel) => {
+export const reloadFiles = (panel, fullPath = null) => {
     return (dispatch, getState) => {
-        console.log(getState().main[panel])
-        let fullPath = `${getState().main[panel].activeDrive}\\${getState().main[panel].fileList.path}`;
-        console.log(fullPath)
-        let fileList = getFilesSync(fullPath);
-        console.log(fileList)
+        dispatch({
+            type: type.LOADING_FILES,
+            payload: {panel: panel}
+        })
+        let path = `${getState().main[panel].activeDrive}\\`;
+        let fileList = getFilesSync(!fullPath ? path : fullPath);
         dispatch({
             type: type.NEW_FILE_LIST,
             payload: {panel: panel, fileList: fileList}

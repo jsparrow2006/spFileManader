@@ -34,15 +34,25 @@ export default function (state = init, action) {
                 ...state,
                 drives: action.payload
             };
+
         case type.SET_ACTIVE_DRIVE:
             tmpState = {...state};
             tmpState[action.payload.panel].activeDrive = action.payload.activeDrive;
             return {
                 ...tmpState,
             };
+
         case type.NEW_FILE_LIST:
             tmpState = {...state}
             tmpState[action.payload.panel].fileList = action.payload.fileList;
+            tmpState[action.payload.panel].loader = false;
+            return {
+                ...tmpState,
+            };
+
+        case type.LOADING_FILES:
+            tmpState = {...state}
+            tmpState[action.payload.panel].loader = true;
             return {
                 ...tmpState,
             };

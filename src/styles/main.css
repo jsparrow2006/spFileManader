@@ -1,5 +1,7 @@
 body{
     overflow: hidden;
+    /*background-color: black;*/
+    /*-webkit-filter: sepia(80%);*/
 }
 
 div::-webkit-scrollbar {
@@ -23,7 +25,7 @@ div::-webkit-scrollbar-thumb {
     border-radius: 10px;
 }
 .Resizer {
-    background: #000;
+    background: #373688;
     opacity: .2;
     z-index: 1;
     -moz-box-sizing: border-box;
@@ -79,5 +81,5 @@ div::-webkit-scrollbar-thumb {
 }
 
 .SplitPane{
-    height: 110vh!important;
+
 }

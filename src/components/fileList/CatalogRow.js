@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-const electron = window.require('electron');
 
 class CatalogRow extends Component {
 
