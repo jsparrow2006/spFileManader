@@ -6,8 +6,6 @@ import PathPanel from './PathPanel'
 import HeaderRow from './HeaderRow'
 import './style.css'
 
-const electron = window.require('electron');
-
 
 class FileList extends Component {
 
@@ -71,6 +69,9 @@ class FileList extends Component {
                     } catch (e) {
                     }
                     break;
+
+                default:
+                    break
             }
         }
 
@@ -79,7 +80,6 @@ class FileList extends Component {
     keyPress = (vector) =>{
         if (this.props.isActive){
             let indexFile = [this.state.selectedFiles[this.state.selectedFiles.length-1]];
-            console.log(indexFile)
             if (vector === 'up' && indexFile > 0){
                 indexFile--;
                 this.selectRow(indexFile);
@@ -105,24 +105,28 @@ class FileList extends Component {
     }
 
     selectRow = (index) => {
+        // let indexNumber = parseInt(index.split('-')[1], 10);
+        let indexNumber = index;
         if (this.kCtrl) {
             let tmpList = this.state.selectedFiles
-            tmpList.push(index)
+            tmpList.push(indexNumber)
             this.setState({selectedFiles: tmpList})
         } else if (this.kShift) {
             let tmpList = [];
-            if (this.state.selectedFiles[this.state.selectedFiles.length - 1] < index) {
-                for (var i = this.state.selectedFiles[this.state.selectedFiles.length - 1]; i <= index; i++) {
+            if (this.state.selectedFiles[this.state.selectedFiles.length - 1] < indexNumber) {
+                for (var i = this.state.selectedFiles[this.state.selectedFiles.length - 1]; i <= indexNumber; i++) {
                     tmpList.push(i)
                 }
-            } else if (this.state.selectedFiles[this.state.selectedFiles.length - 1] > index) {
-                for (var i = index; i <= this.state.selectedFiles[this.state.selectedFiles.length - 1]; i++) {
+            } else if (this.state.selectedFiles[this.state.selectedFiles.length - 1] > indexNumber) {
+                for (let i = indexNumber; i <= this.state.selectedFiles[this.state.selectedFiles.length - 1]; i++) {
                     tmpList.push(i)
                 }
             }
-            this.setState({selectedFiles: tmpList})
+            this.setState({selectedFiles: tmpList});
+            this.props.selectedFiles(null);
         } else {
-            this.setState({selectedFiles: [index]})
+            this.setState({selectedFiles: [indexNumber]});
+            this.props.selectedFiles(this.data[indexNumber], `${this.props.drive}${this.props.filelist.path ? '\\' : ''}${this.props.filelist.path}`)
         }
         let elmnt = document.getElementById('row' + index);
         elmnt.scrollIntoView({block: "end", behavior: "smooth"});
@@ -166,6 +170,7 @@ class FileList extends Component {
                                             click={this.selectRow}
                             />
                         }
+                        return 0
                     })
                 }
             </div>

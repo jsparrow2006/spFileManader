@@ -5,10 +5,6 @@ import {typeSize} from "./consts"
 
 class FileRow extends Component {
 
-    constructor(props){
-        super(props);
-    }
-
     componentDidMount(){
 
     }

@@ -4,7 +4,6 @@ import * as type from '../constants/index'
 
 export const watchDrives = () => {
     let newDrives = getDrivesSync();
-    console.log(newDrives)
     return (dispatch) => {
         dispatch({
             type: type.NEW_DRIVES,

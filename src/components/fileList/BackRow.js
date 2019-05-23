@@ -1,11 +1,6 @@
 import React, {Component} from 'react';
-const electron = window.require('electron');
 
 class BackRow extends Component {
-
-    constructor(props){
-        super(props);
-    }
 
     componentDidMount(){
 

@@ -1,12 +1,6 @@
 import React, {Component} from 'react';
 
-const electron = window.require('electron');
-
 class HeaderRow extends Component {
-
-    constructor(props) {
-        super(props);
-    }
 
     componentDidMount() {
 

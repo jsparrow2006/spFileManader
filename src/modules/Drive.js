@@ -56,11 +56,10 @@ export function getDrivesSync() {
                 FreeSpace: drivestemp[5],
                 Name: drivestemp[6],
                 Size: drivestemp[7],
-                // VolumeName: iconv.decode(iconv.encode(drivestemp[8], 'win1251'), 'win1251')
                 VolumeName: drivestemp[8],
-                // VolumeName: iconv.decode(iconv.encode(drivestemp[8], 'CP1252'), 'utf8').toString()
             });
         }
+        return 0
     });
 
     return drives

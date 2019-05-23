@@ -44,10 +44,12 @@ class WorkPanel extends Component {
                 </div>
                 <div className={`filesArea ${!this.props.isActive ? 'notActive' : ''}`}>
                     <FileList drive={this.props.panel[this.props.number].activeDrive}
+                              number={this.props.number}
                               filelist={this.props.panel[this.props.number].fileList}
                               doubleClickRow={this.doubleClickRow}
                               updateDrive={this.setDrive}
                               isActive={this.props.isActive}
+                              selectedFiles={this.props.selectedFiles}
                     />
                 </div>
             </div>

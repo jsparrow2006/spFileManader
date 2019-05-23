@@ -4,10 +4,8 @@ import {bindActionCreators} from 'redux';
 import {watchDrives} from '../../actions/main'
 import './style/index.css';
 import SplitPane from 'react-split-pane'
-import Pane from 'react-split-pane'
 import WorkPanel from '../../components/workPanel/WorkPanel'
-import {getDrivesSync} from "../../modules/Drive";
-import * as type from "../../constants";
+import FileViewer from '../../components/fileViewer/FileViewer'
 
 
 class Main extends Component {
@@ -15,8 +13,20 @@ class Main extends Component {
     constructor() {
         super();
         this.state = {
-            activePanel: 1
-        }
+            activePanel: 1,
+            openViewer: false,
+        };
+
+        let eventKey = (e) => {
+            if (e.keyCode === 81 && e.ctrlKey) {
+                this.setState({openViewer: !this.state.openViewer})
+            } else if (e.keyCode === 9) {
+                e.preventDefault()
+                this.state.activePanel === 1 ? this.setActivePanel(2) : this.setActivePanel(1)
+            }
+        };
+
+        document.addEventListener('keyup', eventKey);
     }
 
     componentDidMount() {
@@ -26,43 +36,34 @@ class Main extends Component {
         }, 10000)
     }
 
-    setActivePanel = (number) => {
-        console.log('active ' + number)
+    setActivePanel = (number = null) => {
         this.setState({activePanel: number})
+    }
+
+    selectedFiles = (file, path) => {
+        console.log(file)
+        console.log(path)
     }
 
 
     render() {
         return (
             <div>
-                {/*<SplitPane split="horizontal" minSize={400} defaultSize={400}>*/}
-                    {/*<div>*/}
-                        {/*<SplitPane split="vertical" minSize={20} defaultSize={window.innerWidth / 2 - 20}>*/}
-                            {/*<div>*/}
-                                {/*<WorkPanel number={1} setActive={this.setActivePanel}*/}
-                                           {/*isActive={this.state.activePanel === 1}/>*/}
-                            {/*</div>*/}
-                            {/*<div>*/}
-                                {/*<WorkPanel number={2} setActive={this.setActivePanel}*/}
-                                           {/*isActive={this.state.activePanel === 2}/>*/}
-                            {/*</div>*/}
-                        {/*</SplitPane>*/}
-                    {/*</div>*/}
-                    {/*<div>*/}
-                        {/*aaa*/}
-                    {/*</div>*/}
-                {/*</SplitPane>*/}
                 <SplitPane split='horizontal' minSize='50%' defaultSize='85%'>
                     <div>
                         <SplitPane split='vertical' minSize='20%' defaultSize='50%'>
                             <div>
+                                {this.state.activePanel !== 1 && this.state.openViewer ? <FileViewer/> : null}
                                 <WorkPanel number={1} setActive={this.setActivePanel}
-                                           isActive={this.state.activePanel === 1}/>
+                                           isActive={this.state.activePanel === 1}
+                                           selectedFiles={this.selectedFiles}/>
                             </div>
                             <div>
+                                {this.state.activePanel !== 2 && this.state.openViewer ? <FileViewer/> : null}
                                 <WorkPanel number={2} setActive={this.setActivePanel}
                                            style={{width: '48%'}}
-                                           isActive={this.state.activePanel === 2}/>
+                                           isActive={this.state.activePanel === 2}
+                                           selectedFiles={this.selectedFiles}/>
                             </div>
                         </SplitPane>
                     </div>

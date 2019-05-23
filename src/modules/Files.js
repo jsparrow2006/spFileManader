@@ -45,6 +45,7 @@ export function getFilesSync(path) {
                 });
             }
         }
+        return 0
     });
 
     return fileList

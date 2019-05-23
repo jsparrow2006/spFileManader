@@ -2,10 +2,6 @@ import React, {Component} from 'react';
 
 class CatalogRow extends Component {
 
-    constructor(props){
-        super(props);
-    }
-
     componentDidMount(){
 
     }
