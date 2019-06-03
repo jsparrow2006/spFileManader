@@ -5,3 +5,33 @@
     z-index: 9999;
     background-color: #d9d9d9;
 }
+
+.imgViewer{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    justify-content: center;
+    align-items: center;
+    /*overflow-y: scroll;*/
+}
+
+.imgViewer img{
+    max-width: 100%;
+    height: auto;
+    /*max-height: 100%;*/
+}
+
+.dirInfo{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    justify-content: center;
+    align-items: center;
+}
+
+.dirInfo span{
+    color: white;
+}

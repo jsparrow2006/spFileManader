@@ -11,19 +11,19 @@ class HeaderRow extends Component {
             <div className='colHeader'>
                 <div style={{width: this.props.size.name}}>
                     Имя
-                    <div className='colResizer'/>
+                    <span className='colResizer'/>
                 </div>
                 <div style={{width: this.props.size.type}}>
                     Тип
-                    <div className='colResizer'/>
+                    <span className='colResizer'/>
                 </div>
                 <div style={{width: this.props.size.size}}>
                     Размер
-                    <div className='colResizer'/>
+                    <span className='colResizer'/>
                 </div>
                 <div style={{width: this.props.size.date}}>
                     Дата
-                    <div className='colResizer'/>
+                    <span className='colResizer'/>
                 </div>
             </div>
         );

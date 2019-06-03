@@ -15,6 +15,7 @@ class Main extends Component {
         this.state = {
             activePanel: 1,
             openViewer: false,
+            viewFile: '',
         };
 
         let eventKey = (e) => {
@@ -41,8 +42,9 @@ class Main extends Component {
     }
 
     selectedFiles = (file, path) => {
-        console.log(file)
-        console.log(path)
+        this.setState({viewFile: {path: path, file: file}})
+        // console.log(file)
+        // console.log(fileTypes.getTypeFromExt(file.ext))
     }
 
 
@@ -53,13 +55,13 @@ class Main extends Component {
                     <div>
                         <SplitPane split='vertical' minSize='20%' defaultSize='50%'>
                             <div>
-                                {this.state.activePanel !== 1 && this.state.openViewer ? <FileViewer/> : null}
+                                {this.state.activePanel !== 1 && this.state.openViewer ? <FileViewer file={this.state.viewFile}/> : null}
                                 <WorkPanel number={1} setActive={this.setActivePanel}
                                            isActive={this.state.activePanel === 1}
                                            selectedFiles={this.selectedFiles}/>
                             </div>
                             <div>
-                                {this.state.activePanel !== 2 && this.state.openViewer ? <FileViewer/> : null}
+                                {this.state.activePanel !== 2 && this.state.openViewer ? <FileViewer file={this.state.viewFile}/> : null}
                                 <WorkPanel number={2} setActive={this.setActivePanel}
                                            style={{width: '48%'}}
                                            isActive={this.state.activePanel === 2}

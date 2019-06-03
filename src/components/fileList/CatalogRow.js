@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import FolderIcon from '../../images/folder.png'
 
 class CatalogRow extends Component {
 
@@ -10,7 +11,7 @@ class CatalogRow extends Component {
         return (
             <div id={'row' + this.props.index} className={this.props.isSelect ? ' selectedRow' : 'row'}  onClick={() => this.props.click(this.props.index)} onDoubleClick={this.props.doubleClick}>
                 <div style={{width:  this.props.size.name}}>
-                    <img src="http://demiart.ru/forum/uploads1/post-88374-1214073559.png" alt=""
+                    <img src={FolderIcon} alt=""
                          style={{height: '18px'}}/>
                     { this.props.catalog.name}
                 </div>
