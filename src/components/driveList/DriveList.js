@@ -41,7 +41,7 @@ class DriveList extends Component {
                             key={'drive' + index}
                             style={{margin: '3px'}}
                             onClick={() => this.setActiveDrive(drive)}>
-                        {drive.Caption[0]}
+                        {drive.Caption}
                     </Button>
                 );
             })

@@ -20,7 +20,7 @@ class PathPanel extends Component {
     render() {
         return (
             <div className={`pathRow`} onDoubleClick={() => this.edit(true)} contentEditable={this.state.editable}>
-                <div style={{width: '70%'}}>\{this.props.path}</div>
+                <div style={{width: '70%'}}>{this.props.path}</div>
                 <div style={{width: '30%'}}></div>
             </div>
         );

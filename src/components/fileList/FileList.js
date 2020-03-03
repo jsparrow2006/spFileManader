@@ -7,6 +7,12 @@ import HeaderRow from './HeaderRow'
 import './style.css'
 
 const electron = window.require('electron');
+const os = electron.remote.require('os').platform();
+
+const osSetting = {
+    linux: {devider: '\/', defaultPath: '/home'},
+    win32: {devider: '\\', defaultPath: 'C:'}
+}
 
 
 class FileList extends Component {
@@ -146,7 +152,7 @@ class FileList extends Component {
                                                      doubleClick={() => this.props.doubleClickRow({
                                                          type: 'dir',
                                                          name: '..'
-                                                     }, `${this.props.drive}${this.props.filelist.path ? '\\' : ''}${this.props.filelist.path}`)}
+                                                     }, `${this.props.drive}${this.props.filelist.path ? osSetting[os].devider : ''}${this.props.filelist.path}`)}
                 /> : ''}
 
                 {
@@ -155,14 +161,14 @@ class FileList extends Component {
                             return <CatalogRow key={index} index={index} catalog={file}
                                                size={this.state.sizeColumn} isSelect={this.rowIsSelect(index)}
                                                ondblclick={() => this.props.open(file)}
-                                               doubleClick={() => this.props.doubleClickRow(file, `${this.props.drive}${this.props.filelist.path ? '\\' : ''}${this.props.filelist.path}`)}
+                                               doubleClick={() => this.props.doubleClickRow(file, `${this.props.drive}${this.props.filelist.path ? osSetting[os].devider : ''}${this.props.filelist.path}`)}
                                                click={this.selectRow}
                             />
                         } else if (file.type === 'file') {
                             return <FileRow key={index} index={index} file={file}
                                             size={this.state.sizeColumn} isSelect={this.rowIsSelect(index)}
                                             ondblclick={() => this.props.open(file)}
-                                            doubleClick={() => this.props.doubleClickRow(file, `${this.props.drive}${this.props.filelist.path ? '\\' : ''}${this.props.filelist.path}`)}
+                                            doubleClick={() => this.props.doubleClickRow(file, `${this.props.drive}${this.props.filelist.path ? osSetting[os].devider : ''}${this.props.filelist.path}`)}
                                             click={this.selectRow}
                             />
                         }

@@ -6,7 +6,12 @@ import {getFilesSync} from '../../modules/Files'
 import FileViewer from '../fileViewer/FileViewer'
 const electron = window.require('electron');
 const {exec} = electron.remote.require('child_process');
+const os = electron.remote.require('os').platform();
 
+const osSetting = {
+    linux: {devider: '\/', defaultPath: '/home'},
+    win32: {devider: '\\', defaultPath: 'C:'}
+}
 
 
 class WorkPanel extends Component {
@@ -14,7 +19,7 @@ class WorkPanel extends Component {
     constructor(props){
         super();
         this.state = {
-            drive: 'D:',
+            drive: osSetting[os].defaultPath,
             drives: [],
             filelist: {
                 files: [],
@@ -30,30 +35,31 @@ class WorkPanel extends Component {
     }
 
     doubleClickRow = (row, fullPath) => {
-        // console.log(`${fullPath}\\${row.name}`)
+        console.log(`${fullPath}${osSetting[os].devider}${row.name}`)
         if(row.type === 'dir'){
-            this.setState({filelist: {...getFilesSync(`${fullPath}\\${row.name}`)}})
+            this.setState({filelist: {...getFilesSync(`${fullPath}${osSetting[os].devider}${row.name}`)}})
         } else if (row.type === 'file'){
-            exec(`"${fullPath}\\${row.name}.${row.ext}"`);
+            exec(`"${fullPath}${osSetting[os].devider}${row.name}.${row.ext}"`);
         }
     }
 
     setDrive = (drive) => {
         this.setState({drive: drive}, () => {
-            this.setState({filelist: {...getFilesSync(`${this.state.drive}\\`)}})
+            console.log(this.state.drive)
+            this.setState({filelist: {...getFilesSync(`${this.state.drive}`)}})
         })
     }
 
     updateDrive = (drives) => {
         console.log(drives)
         this.setState({drives: drives})
-        this.setState({filelist: {...getFilesSync(`${this.state.drive}\\`)}})
+        this.setState({filelist: {...getFilesSync(`${this.state.drive}`)}})
     }
 
     render() {
         return (
             <div className={`panel`} onClick={() => this.props.setActive(this.props.number)}>
-                <FileViewer/>
+                {/*<FileViewer/>*/}
                 <div className='diskArea'>
                     <DriveList name={'driveList' + this.props.number} click={this.setDrive} updateDrive={this.updateDrive}/>
                 </div>
